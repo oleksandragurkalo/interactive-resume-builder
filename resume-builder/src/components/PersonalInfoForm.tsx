@@ -66,37 +66,68 @@ export default function PersonalInfoForm() {
     };
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Form */}
-            <div>
-                <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
+        <div className="grid grid-cols-3 col-span-4 col-start-2 gap-x-20">
+            {/* --- Left: Form --- */}
+            <div className="space-y-4">
+                <h2 className="text-xl font-semibold mb-2">Personal Information</h2>
                 <form className="space-y-4">
-                    <input className="w-full border p-2 rounded" name="fullName" placeholder="Full Name"
-                           value={info.fullName} onChange={handleChange}/>
-                    <input className="w-full border p-2 rounded" name="jobTitle" placeholder="Job Title"
-                           value={info.jobTitle} onChange={handleChange}/>
-                    <input className="w-full border p-2 rounded" name="email" placeholder="Email" value={info.email}
-                           onChange={handleChange}/>
-                    <input className="w-full border p-2 rounded" name="phone" placeholder="Phone" value={info.phone}
-                           onChange={handleChange}/>
-                    <input className="w-full border p-2 rounded" name="location" placeholder="Location"
-                           value={info.location} onChange={handleChange}/>
-                    <textarea className="w-full border p-2 rounded" name="summary" placeholder="Professional Summary"
-                              value={info.summary} onChange={handleChange} rows={4}/>
+                    <input
+                        name="fullName"
+                        placeholder="Full Name"
+                        value={info.fullName}
+                        onChange={handleChange}
+                        className="w-full border border-gray-300 p-2 rounded box-border"
+                    />
+                    <input
+                        name="jobTitle"
+                        placeholder="Job Title"
+                        value={info.jobTitle}
+                        onChange={handleChange}
+                        className="w-full border border-gray-300 p-2 rounded box-border"
+                    />
+                    <input
+                        name="email"
+                        placeholder="Email"
+                        value={info.email}
+                        onChange={handleChange}
+                        className="w-full border border-gray-300 p-2 rounded box-border"
+                    />
+                    <input
+                        name="phone"
+                        placeholder="Phone"
+                        value={info.phone}
+                        onChange={handleChange}
+                        className="w-full border border-gray-300 p-2 rounded box-border"
+                    />
+                    <input
+                        name="location"
+                        placeholder="Location"
+                        value={info.location}
+                        onChange={handleChange}
+                        className="w-full border border-gray-300 p-2 rounded box-border"
+                    />
+                    <textarea
+                        name="summary"
+                        placeholder="Professional Summary"
+                        value={info.summary}
+                        onChange={handleChange}
+                        rows={4}
+                        className="w-full border border-gray-300 p-2 rounded box-border"
+                    />
                 </form>
             </div>
 
-            {/* Live Preview */}
-            <div className="bg-white shadow-md border p-6 rounded-md">
+            {/* --- Right: Resume Preview --- */}
+            <div className="col-span-2 shadow border p-6 rounded">
                 <div className="text-center border-b pb-4 mb-4">
                     <h2 className="text-3xl font-bold text-gray-800">{info.fullName || "Your Name"}</h2>
                     <p className="text-lg text-gray-500">{info.jobTitle || "Your Title"}</p>
                 </div>
 
-                <div className="flex justify-center gap-4 text-sm text-gray-600 mb-2">
+                <div className="flex justify-center flex-wrap gap-2 text-sm text-gray-600 mb-2">
                     {info.email && <span>{info.email}</span>}
-                    {info.phone && <span>| {info.phone}</span>}
-                    {info.location && <span>| {info.location}</span>}
+                    {info.phone && <span> | {info.phone}</span>}
+                    {info.location && <span> | {info.location}</span>}
                 </div>
 
                 {info.summary && (

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import InfoForm from "../InfoForm/InfoForm.tsx";
 
 export type PersonalInfo = {
     fullName: string;
@@ -11,7 +12,7 @@ export type PersonalInfo = {
 
 const LOCAL_STORAGE_KEY = "resume-personal-info";
 
-export default function PersonalInfoForm() {
+function PersonalInfoForm() {
     const [info, setInfo] = useState<PersonalInfo>(() => {
         const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
         if (saved) {
@@ -71,51 +72,7 @@ export default function PersonalInfoForm() {
                 <div className="lg:pr-4">
                     <div className="lg:max-w-lg">
                         <h2 className="">Personal Information</h2>
-                        <form className="space-y-4">
-                            <input
-                                name="fullName"
-                                placeholder="Full Name"
-                                value={info.fullName}
-                                onChange={handleChange}
-                                className="w-full border p-2 border-gray-300 rounded"
-                            />
-                            <input
-                                name="jobTitle"
-                                placeholder="Job Title"
-                                value={info.jobTitle}
-                                onChange={handleChange}
-                                className="w-full border p-2 border-gray-300 rounded"
-                            />
-                            <input
-                                name="email"
-                                placeholder="Email"
-                                value={info.email}
-                                onChange={handleChange}
-                                className="w-full border p-2 border-gray-300 rounded"
-                            />
-                            <input
-                                name="phone"
-                                placeholder="Phone"
-                                value={info.phone}
-                                onChange={handleChange}
-                                className="w-full border p-2 border-gray-300 rounded"
-                            />
-                            <input
-                                name="location"
-                                placeholder="Location"
-                                value={info.location}
-                                onChange={handleChange}
-                                className="w-full border p-2 border-gray-300 rounded"
-                            />
-                            <textarea
-                                name="summary"
-                                placeholder="Professional Summary"
-                                value={info.summary}
-                                onChange={handleChange}
-                                rows={4}
-                                className="w-full border p-2 border-gray-300 rounded"
-                            />
-                        </form>
+                        <InfoForm info={info} handleChange={handleChange} />
                     </div>
                 </div>
             </div>
@@ -144,3 +101,5 @@ export default function PersonalInfoForm() {
         </div>
     );
 }
+
+export default PersonalInfoForm;

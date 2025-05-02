@@ -7,7 +7,6 @@ type InfoFormProps = {
 };
 
 function InfoForm ({ info, handleChange }: InfoFormProps) {
-    console.log(info);
     return (
         <form className="space-y-4">
             <InfoInput

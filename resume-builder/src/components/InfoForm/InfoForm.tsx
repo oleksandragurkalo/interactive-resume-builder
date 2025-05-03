@@ -1,5 +1,5 @@
-import { PersonalInfo } from "../PersonalInfoForm/PersonalInfoForm";
 import InfoInput from "../InfoInput/InfoInput.tsx";
+import { PersonalInfo } from "../../data/resume.model.tsx";
 
 type InfoFormProps = {
     info: PersonalInfo;
@@ -7,46 +7,12 @@ type InfoFormProps = {
 };
 
 function InfoForm ({ info, handleChange }: InfoFormProps) {
+    console.log('InfoForm rendered', info);
     return (
         <form className="space-y-4">
-            <InfoInput
-                name="fullName"
-                placeholder="Full Name"
-                value={info.fullName}
-                onChange={handleChange}
-            />
-            <InfoInput
-                name="jobTitle"
-                placeholder="Job Title"
-                value={info.jobTitle}
-                onChange={handleChange}
-            />
-            <InfoInput
-                name="email"
-                placeholder="Email"
-                value={info.email}
-                onChange={handleChange}
-            />
-            <InfoInput
-                name="phone"
-                placeholder="Phone"
-                value={info.phone}
-                onChange={handleChange}
-            />
-            <InfoInput
-                name="location"
-                placeholder="Location"
-                value={info.location}
-                onChange={handleChange}
-            />
-            <textarea
-                name="summary"
-                placeholder="Professional Summary"
-                value={info.summary}
-                onChange={handleChange}
-                rows={4}
-                className="w-full border p-2 border-gray-300 rounded"
-            />
+            {Object.values(info).map((field) => (
+                <InfoInput key={field.name} info={field} onChange={handleChange} />
+            ))}
         </form>
     )
 }

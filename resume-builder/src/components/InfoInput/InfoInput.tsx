@@ -1,4 +1,4 @@
-import {PersonalInfoField} from "../../data/resume.model.tsx";
+import { PersonalInfoField } from "../../data/resume.model.tsx";
 
 type InfoInputProps = {
     info: PersonalInfoField;

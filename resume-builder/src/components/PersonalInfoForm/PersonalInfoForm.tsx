@@ -1,36 +1,24 @@
-import { useLocalStorageForm } from "../../hooks/useLocalStorageForm.tsx";
+import { useState } from "react";
 import InfoForm from "../InfoForm/InfoForm.tsx";
 import ResumePreview from "../ResumePreview/ResumePreview.tsx";
-
-export type PersonalInfo = {
-    fullName: string;
-    jobTitle: string;
-    email: string;
-    phone: string;
-    location: string;
-    summary: string;
-};
-
-const LOCAL_STORAGE_KEY = "resume-personal-info";
-
-const DEFAULT_INFO: PersonalInfo = {
-    fullName: "",
-    jobTitle: "",
-    email: "",
-    phone: "",
-    location: "",
-    summary: "",
-};
+import { DEFAULT_PERSONAL_INFO, PersonalInfo } from "../../data/resume.model.tsx";
 
 function PersonalInfoForm() {
-    const [info, setInfo] = useLocalStorageForm<PersonalInfo>(LOCAL_STORAGE_KEY, DEFAULT_INFO);
+    console.log('PersonalInfoForm rendered');
+    const [info, setInfo] = useState<PersonalInfo>(DEFAULT_PERSONAL_INFO);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setInfo((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+        setInfo((prev) => {
+            const fieldName = name as keyof typeof prev;
+            return {
+                ...prev,
+                [fieldName]: {
+                    ...prev[fieldName],
+                    value,
+                },
+            };
+        });
     };
 
     return (
@@ -38,7 +26,7 @@ function PersonalInfoForm() {
             <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
                 <div className="lg:pr-4">
                     <div className="lg:max-w-lg">
-                        <h2 className="">Personal Information</h2>
+                        <h2 className="text-xl font-semibold mb-2">Personal Information</h2>
                         <InfoForm info={info} handleChange={handleChange} />
                     </div>
                 </div>

@@ -1,3 +1,4 @@
+import React, { useMemo } from "react";
 import InfoInput from "../InfoInput/InfoInput.tsx";
 import { PersonalInfo } from "../../data/resume.model.tsx";
 
@@ -9,7 +10,10 @@ type InfoFormProps = {
 };
 
 function InfoForm ({ info, handleChange, handleClick, fieldErrors }: InfoFormProps) {
-    const isFormValid = Object.values(fieldErrors).every((error) => error === null);
+    const isFormValid = useMemo(
+        () => Object.values(fieldErrors).every((error) => error === null),
+        [fieldErrors]
+    );
 
     return (
         <>

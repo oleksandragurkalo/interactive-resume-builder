@@ -2,11 +2,13 @@ import { useState } from "react";
 import InfoForm from "../InfoForm/InfoForm.tsx";
 import ResumePreview from "../ResumePreview/ResumePreview.tsx";
 import EducationForm from "../EducationForm/EducationForm.tsx";
-import { DEFAULT_PERSONAL_INFO, PersonalInfo } from "../../data/resume.model.tsx";
+import { DEFAULT_PERSONAL_INFO, PersonalInfo, PersonalInfoField } from "../../data/resume.model.tsx";
 
 function PersonalInfoForm() {
     console.log('PersonalInfoForm rendered');
     const [info, setInfo] = useState<PersonalInfo>(DEFAULT_PERSONAL_INFO);
+    const [fieldErrors, setFieldErrors] = useState<Record<string, string | null>>({});
+    const [step, setStep] = useState(1);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -22,12 +24,56 @@ function PersonalInfoForm() {
         });
     };
 
+    function validateField(field: PersonalInfoField): string | null {
+        const value = field.value.trim();
+
+        if (field.required && value === "") {
+            return "This field is required.";
+        }
+
+        if (field.type === "tel" && value !== "" && !/^\d+$/.test(value)) {
+            return "Phone number must contain only digits.";
+        }
+
+        if (
+            field.type === "email" &&
+            value !== "" &&
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+        ) {
+            return "Invalid email address.";
+        }
+
+        return null;
+    }
+
+    function validateForm(info: PersonalInfo): Record<string, string | null> {
+        const errors: Record<string, string | null> = {};
+
+        Object.values(info).forEach((field) => {
+            errors[field.name] = validateField(field);
+        });
+
+        return errors;
+    }
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+
+        const errors = validateForm(info);
+        setFieldErrors(errors);
+
+        const hasErrors = Object.values(errors).some((e) => e !== null);
+        if (!hasErrors) {
+            setStep((step) => step + 1);
+        }
+    };
+
     return (
         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
             <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
                 <div className="lg:pr-4 space-y-4">
-                    <InfoForm info={info} handleChange={handleChange}/>
-                    <EducationForm/>
+                    <InfoForm info={info} handleChange={handleChange} handleClick={handleClick} fieldErrors={fieldErrors}/>
+                    {step >= 2 && <EducationForm />}
                 </div>
             </div>
             <div

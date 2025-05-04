@@ -1,8 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import InfoForm from "../InfoForm/InfoForm.tsx";
 import ResumePreview from "../ResumePreview/ResumePreview.tsx";
 import EducationForm from "../EducationForm/EducationForm.tsx";
-import { DEFAULT_PERSONAL_INFO, PersonalInfo, PersonalInfoField } from "../../data/resume.model.tsx";
+import { DEFAULT_PERSONAL_INFO, PersonalInfo } from "../../data/resume.model.tsx";
+import { validateField, validateForm } from "../../utils/validation.tsx";
 
 function PersonalInfoForm() {
     console.log('PersonalInfoForm rendered');
@@ -22,39 +23,16 @@ function PersonalInfoForm() {
                 },
             };
         });
+
+        const field = info[name as keyof typeof info];
+        const updatedField = { ...field, value };
+        const error = validateField(updatedField);
+
+        setFieldErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: error,
+        }));
     };
-
-    function validateField(field: PersonalInfoField): string | null {
-        const value = field.value.trim();
-
-        if (field.required && value === "") {
-            return "This field is required.";
-        }
-
-        if (field.type === "tel" && value !== "" && !/^\d+$/.test(value)) {
-            return "Phone number must contain only digits.";
-        }
-
-        if (
-            field.type === "email" &&
-            value !== "" &&
-            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-        ) {
-            return "Invalid email address.";
-        }
-
-        return null;
-    }
-
-    function validateForm(info: PersonalInfo): Record<string, string | null> {
-        const errors: Record<string, string | null> = {};
-
-        Object.values(info).forEach((field) => {
-            errors[field.name] = validateField(field);
-        });
-
-        return errors;
-    }
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();

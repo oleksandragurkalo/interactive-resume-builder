@@ -15,10 +15,27 @@ function ResumePreview({ info }: ResumePreviewProps) {
             </div>
 
             <div className="flex justify-center flex-wrap gap-2 text-sm text-gray-600 mb-2">
-                {info.email.value && <span>{info.email.value}</span>}
+                {info.location.value && <span>{info.location.value}</span>}
                 {info.phone.value && <span> | {info.phone.value}</span>}
-                {info.location.value && <span> | {info.location.value}</span>}
+                {info.email.value && <span> | {info.email.value}</span>}
             </div>
+
+            {info.linkedin.value && (
+                <div className="flex justify-center text-xs text-gray-600">
+                    <span>Linkedin: {info.linkedin.value}</span>
+                </div>
+            )}
+
+            {info.summary.value && (
+                <div className="mt-4">
+                    <h3 className="text-md font-semibold text-gray-700 mb-1">
+                        Summary
+                    </h3>
+                    <p className="text-sm text-gray-700 whitespace-pre-wrap">
+                        {info.summary.value}
+                    </p>
+                </div>
+            )}
         </div>
     );
 }

@@ -4,7 +4,7 @@ import { PersonalInfoField } from "../../data/resume.model.tsx";
 type InfoInputProps = {
     info: PersonalInfoField;
     error: string | null;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 };
 
 const InfoInput = React.memo(({info, error, onChange}: InfoInputProps) => {
@@ -16,16 +16,29 @@ const InfoInput = React.memo(({info, error, onChange}: InfoInputProps) => {
                 {info.required && <span className="text-red-500"> *</span>}
                 {error && <div><span className="text-red-500">{error}</span></div>}
             </label>
-            <input
-                type={info.type}
-                name={info.name}
-                id={info.name}
-                placeholder={info.placeholder}
-                required={info.required}
-                value={info.value}
-                onChange={onChange}
-                className={`w-full border p-2 border-gray-300 rounded ${error ? "border-red-500" : ""}`}
-            />
+            {info.type === "textarea" ? (
+                <textarea
+                    name={info.name}
+                    id={info.name}
+                    placeholder={info.placeholder}
+                    required={info.required}
+                    value={info.value}
+                    onChange={onChange}
+                    className={`w-full border p-2 border-gray-300 rounded ${error ? "border-red-500" : ""}`}
+                    style={{height: '150px'}}
+                />
+            ) : (
+                <input
+                    type={info.type}
+                    name={info.name}
+                    id={info.name}
+                    placeholder={info.placeholder}
+                    required={info.required}
+                    value={info.value}
+                    onChange={onChange}
+                    className={`w-full border p-2 border-gray-300 rounded ${error ? "border-red-500" : ""}`}
+                />
+            )}
         </div>
     )
 }, arePropsEqual);

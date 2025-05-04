@@ -1,16 +1,20 @@
+import React from "react";
 import { PersonalInfoField } from "../../data/resume.model.tsx";
 
 type InfoInputProps = {
     info: PersonalInfoField;
+    error: string | null;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-function InfoInput( { info, onChange }: InfoInputProps) {
+const InfoInput = React.memo(({info, error, onChange}: InfoInputProps) => {
     console.log('InfoInput rendered', info);
     return (
         <div className="flex flex-col gap-1">
             <label htmlFor={info.name} className="font-medium text-sm text-gray-700">
                 {info.label}
+                {info.required && <span className="text-red-500"> *</span>}
+                {error && <div><span className="text-red-500">{error}</span></div>}
             </label>
             <input
                 type={info.type}
@@ -20,10 +24,17 @@ function InfoInput( { info, onChange }: InfoInputProps) {
                 required={info.required}
                 value={info.value}
                 onChange={onChange}
-                className="w-full border p-2 border-gray-300 rounded"
+                className={`w-full border p-2 border-gray-300 rounded ${error ? "border-red-500" : ""}`}
             />
         </div>
     )
+}, arePropsEqual);
+
+function arePropsEqual(prevProps: InfoInputProps, nextProps: InfoInputProps) {
+    return (
+        prevProps.info.value === nextProps.info.value &&
+        prevProps.error === nextProps.error
+    );
 }
 
 export default InfoInput;

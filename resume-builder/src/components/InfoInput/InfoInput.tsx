@@ -1,8 +1,8 @@
 import React from "react";
-import { PersonalInfoField } from "../../data/resume.model.tsx";
+import { InputField } from "../../data/resume.model.tsx";
 
 type InfoInputProps = {
-    info: PersonalInfoField;
+    info: InputField;
     error: string | null;
     onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 };

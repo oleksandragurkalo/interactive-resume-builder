@@ -1,19 +1,26 @@
-export type PersonalInfoField = {
+export type InputField = {
     value: string;
     name: string;
     label?: string;
-    type: "text" | "email" | "tel" | "textarea";
-    placeholder: string;
+    type: "text" | "email" | "tel" | "textarea" | "date" | "checkbox";
+    placeholder?: string;
     required?: boolean;
 };
 
 export type PersonalInfo = {
-    fullName: PersonalInfoField;
-    email: PersonalInfoField;
-    phone: PersonalInfoField;
-    location: PersonalInfoField;
-    linkedin: PersonalInfoField;
-    summary: PersonalInfoField;
+    fullName: InputField;
+    email: InputField;
+    phone: InputField;
+    location: InputField;
+};
+
+export type ExperienceInfo = {
+    jobTitle: InputField;
+    employer: InputField;
+    location: InputField;
+    startDate: InputField;
+    endDate: InputField;
+    ongoing: InputField;
 };
 
 export const DEFAULT_PERSONAL_INFO: PersonalInfo = {
@@ -22,7 +29,7 @@ export const DEFAULT_PERSONAL_INFO: PersonalInfo = {
         name: "fullName",
         label: "Full Name",
         type: "text",
-        placeholder: "Full Name",
+        placeholder: "Sophie Chen",
         required: true,
     },
     location: {
@@ -30,8 +37,8 @@ export const DEFAULT_PERSONAL_INFO: PersonalInfo = {
         name: "location",
         label: "Location",
         type: "text",
-        placeholder: "Location",
-        required: true,
+        placeholder: "Toronto, Canada",
+        required: false,
     },
     phone: {
         value: "",
@@ -39,7 +46,7 @@ export const DEFAULT_PERSONAL_INFO: PersonalInfo = {
         label: "Phone",
         type: "tel",
         placeholder: "+1 (555) 555-5555",
-        required: true,
+        required: false,
     },
     email: {
         value: "",
@@ -48,23 +55,55 @@ export const DEFAULT_PERSONAL_INFO: PersonalInfo = {
         type: "email",
         placeholder: "sophie@example.com",
         required: true,
-    },
-    linkedin: {
+    }
+};
+
+export const DEFAULT_EXPERIENCE_INFO: ExperienceInfo = {
+    jobTitle: {
         value: "",
-        name: "linkedin",
-        label: "LinkedIn",
+        name: "jobTitle",
+        label: "Job Title",
         type: "text",
-        placeholder: "https://linkedin.com/in/username",
-        required: false,
-    },
-    summary: {
-        value: "",
-        name: "summary",
-        label: "Summary",
-        type: "textarea",
-        placeholder: "",
+        placeholder: "Cachier",
         required: true,
     },
-};
+    employer: {
+        value: "",
+        name: "employer",
+        label: "Employer",
+        type: "text",
+        placeholder: "McDonalds",
+        required: true,
+    },
+    location: {
+        value: "",
+        name: "location",
+        label: "Location",
+        type: "text",
+        placeholder: "Toronto, Canada",
+        required: false,
+    },
+    startDate: {
+        value: "",
+        name: "startDate",
+        label: "Start Date",
+        type: "date",
+        placeholder: "Select Date",
+        required: true,
+    },
+    endDate: {
+        value: "",
+        name: "endDate",
+        label: "End Date",
+        type: "date",
+        placeholder: "Select Date",
+    },
+    ongoing : {
+        value: "",
+        name: "ongoing",
+        label: "I am currently working here",
+        type: "checkbox",
+    }
+}
 
 export const LOCAL_STORAGE_KEY = "resume-personal-info";

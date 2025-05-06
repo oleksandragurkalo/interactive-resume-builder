@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import React, {useMemo, useState} from "react";
 import { useFormStep } from "../../hooks/useFormStep.tsx";
 import {handleValidatedContinue, validateForm} from "../../utils/validation.tsx";
 import Header from "../Header/Header.tsx";
@@ -15,8 +15,8 @@ import {
 import './App.css'
 import ContinueButton from "../ContinueButton/ContinueButton.tsx";
 
-
 function App() {
+    const [isOngoing, setIsOngoing] = useState(false);
     const [step, setStep] = React.useState(1);
 
     const {
@@ -28,6 +28,7 @@ function App() {
 
     const {
         data: experience,
+        setData: setExperience,
         errors: experienceErrors,
         setErrors: setExperienceErrors,
         handleChange: handleExperienceChange,
@@ -53,8 +54,24 @@ function App() {
         handleValidatedContinue(experience, validateForm, setExperienceErrors, () => setStep(s => s + 1));
     };
 
+    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const checked = e.target.checked;
+        setIsOngoing(checked);
+        updateEndDateField(checked);
+    }
 
-    return (
+    function updateEndDateField(checked: boolean) {
+        setExperience((prev) => ({
+            ...prev,
+            endDate: {
+                ...prev.endDate,
+                value: checked ? "" : prev.endDate.value,
+                required: !checked,
+            },
+        }));
+    }
+
+        return (
         <main className="grid grid-cols-6 items-start min-h-screen text-gray-900">
             <div className="col-span-4 col-start-2">
                 <Header/>
@@ -71,7 +88,7 @@ function App() {
                                 )}
                                 {step >= 2 && (
                                     <>
-                                        <ExperienceForm experience={experience} handleChange={handleExperienceChange} fieldErrors={experienceErrors}/>
+                                        <ExperienceForm experience={experience} handleChange={handleExperienceChange} fieldErrors={experienceErrors} handleCheckboxChange={handleCheckboxChange} isOngoing={isOngoing}/>
                                         <ContinueButton disabled={!isExperienceValid} onClick={handleExperienceInfoClick}/>
                                     </>
                                 )}

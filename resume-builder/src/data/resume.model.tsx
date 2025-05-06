@@ -2,7 +2,7 @@ export type InputField = {
     value: string;
     name: string;
     label?: string;
-    type: "text" | "email" | "tel" | "textarea" | "date" | "checkbox";
+    type: "text" | "email" | "tel" | "textarea" | "month" | "checkbox";
     placeholder?: string;
     required?: boolean;
 };
@@ -20,7 +20,6 @@ export type ExperienceInfo = {
     location: InputField;
     startDate: InputField;
     endDate: InputField;
-    ongoing: InputField;
 };
 
 export const DEFAULT_PERSONAL_INFO: PersonalInfo = {
@@ -87,7 +86,7 @@ export const DEFAULT_EXPERIENCE_INFO: ExperienceInfo = {
         value: "",
         name: "startDate",
         label: "Start Date",
-        type: "date",
+        type: "month",
         placeholder: "Select Date",
         required: true,
     },
@@ -95,14 +94,9 @@ export const DEFAULT_EXPERIENCE_INFO: ExperienceInfo = {
         value: "",
         name: "endDate",
         label: "End Date",
-        type: "date",
+        type: "month",
         placeholder: "Select Date",
-    },
-    ongoing : {
-        value: "",
-        name: "ongoing",
-        label: "I am currently working here",
-        type: "checkbox",
+        required: true,
     }
 }
 

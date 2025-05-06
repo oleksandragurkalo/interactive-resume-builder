@@ -12,6 +12,7 @@ export type PersonalInfo = {
     email: InputField;
     phone: InputField;
     location: InputField;
+    summary: InputField;
 };
 
 export type ExperienceInfo = {
@@ -20,6 +21,7 @@ export type ExperienceInfo = {
     location: InputField;
     startDate: InputField;
     endDate: InputField;
+    experience: InputField;
 };
 
 export const DEFAULT_PERSONAL_INFO: PersonalInfo = {
@@ -54,6 +56,14 @@ export const DEFAULT_PERSONAL_INFO: PersonalInfo = {
         type: "email",
         placeholder: "sophie@example.com",
         required: true,
+    },
+    summary: {
+        value: "",
+        name: "summary",
+        label: "Summary",
+        type: "textarea",
+        placeholder: "Please update your summary",
+        required: false,
     }
 };
 
@@ -97,7 +107,15 @@ export const DEFAULT_EXPERIENCE_INFO: ExperienceInfo = {
         type: "month",
         placeholder: "Select Date",
         required: true,
-    }
+    },
+    experience: {
+        value: "",
+        name: "experience",
+        label: "Your experience",
+        type: "textarea",
+        placeholder: "Please update your experience",
+        required: true,
+    },
 }
 
 export const LOCAL_STORAGE_KEY = "resume-personal-info";

@@ -13,6 +13,7 @@ export type PersonalInfo = {
     phone: InputField;
     location: InputField;
     summary: InputField;
+    linkedin: InputField;
 };
 
 export type ExperienceInfo = {
@@ -64,7 +65,15 @@ export const DEFAULT_PERSONAL_INFO: PersonalInfo = {
         type: "textarea",
         placeholder: "Please update your summary",
         required: false,
-    }
+    },
+    linkedin: {
+        value: "",
+        name: "linkedin",
+        label: "LinkedIn",
+        type: "text",
+        placeholder: "linkedin.com/in/yourprofile",
+        required: false,
+    },
 };
 
 export const DEFAULT_EXPERIENCE_INFO: ExperienceInfo = {

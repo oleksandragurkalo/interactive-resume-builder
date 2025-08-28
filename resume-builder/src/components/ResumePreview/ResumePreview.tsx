@@ -27,7 +27,7 @@ function ResumePreview({ info, experienceList }: ResumePreviewProps) {
             {/* Summary */}
             {info.summary.value && (
                 <div className="mb-6">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-1">Summary</h3>
+                    <h3 className="text-8xl font-semibold text-gray-800 mb-1">Summary</h3>
                     <p className="text-6xl text-gray-700 whitespace-pre-wrap leading-relaxed">
                         {info.summary.value}
                     </p>

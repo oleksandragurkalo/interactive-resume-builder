@@ -58,20 +58,20 @@ export const DEFAULT_PERSONAL_INFO: PersonalInfo = {
         placeholder: "sophie@example.com",
         required: true,
     },
-    summary: {
-        value: "",
-        name: "summary",
-        label: "Summary",
-        type: "textarea",
-        placeholder: "Please update your summary",
-        required: false,
-    },
     linkedin: {
         value: "",
         name: "linkedin",
         label: "LinkedIn",
         type: "text",
         placeholder: "linkedin.com/in/yourprofile",
+        required: false,
+    },
+    summary: {
+        value: "",
+        name: "summary",
+        label: "Summary",
+        type: "textarea",
+        placeholder: "Please update your summary",
         required: false,
     },
 };

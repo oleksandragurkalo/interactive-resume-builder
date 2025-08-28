@@ -24,7 +24,7 @@ function ExperienceForm({ experience, handleChange, fieldErrors, handleCheckboxC
             <div className="flex justify-between items-center gap-1">
                 <div>
                     <h2 className="text-xl font-semibold mb-2">Experience</h2>
-                    <p className="text-sm text-gray-500">Add your experience details</p>
+                    <p className="text-6xl text-gray-500">Add your experience details</p>
                 </div>
                 <button
                     onClick={onClick}

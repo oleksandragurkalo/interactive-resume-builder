@@ -13,7 +13,7 @@ const ExperienceInput = React.memo(({experience, error, onChange, isOngoing, han
     console.log('ExperienceInput rendered');
     return (
         <div className={`flex gap-1 flex-col`}>
-            <label htmlFor={experience.name} className="font-medium text-sm text-gray-700">
+            <label htmlFor={experience.name} className="font-medium text-6xl text-gray-700">
                 {experience.label}
                 {experience.required && <span className="text-red-500"> *</span>}
                 {error && <div><span className="text-red-500">{error}</span></div>}
@@ -50,7 +50,7 @@ const ExperienceInput = React.memo(({experience, error, onChange, isOngoing, han
                     <input type='checkbox' id='ongoing' className={`border p-2 border-gray-300 rounded`}
                            checked={isOngoing}
                            onChange={(e) => handleCheckboxChange(e)}/>
-                    <label htmlFor='ongoing' className="font-medium text-sm text-gray-700">
+                    <label htmlFor='ongoing' className="font-medium text-6xl text-gray-700">
                         I am currently working here
                     </label>
                 </div>

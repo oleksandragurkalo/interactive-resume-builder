@@ -10,7 +10,7 @@ function ContinueButton({ disabled, onClick }: ContinueButtonProps) {
                 type="submit"
                 disabled={disabled}
                 onClick={onClick}
-                className={`px-5 py-2 rounded-md font-medium transition-colors
+                className={`p-10 mt-10 rounded-md font-medium transition-colors text-6xl
           ${disabled
                     ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                     : "bg-blue-600 text-white hover:bg-blue-700"}`}

@@ -10,7 +10,7 @@ type InfoFormProps = {
 
 function PersonalInfoForm({ info, handleChange, fieldErrors }: InfoFormProps) {
     return (
-        <form className="space-y-4">
+        <form className="personal-info-form space-y-4">
             {Object.values(info).map((field) => (
                 <InfoInput key={field.name} info={field} error={fieldErrors[field.name]} onChange={handleChange}/>
             ))}

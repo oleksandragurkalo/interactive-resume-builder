@@ -5,12 +5,12 @@ type ContinueButtonProps = {
 
 function ContinueButton({ disabled, onClick }: ContinueButtonProps) {
     return (
-        <div className="flex justify-end">
+        <div className="continue-button-wrapper flex justify-end">
             <button
                 type="submit"
                 disabled={disabled}
                 onClick={onClick}
-                className={`p-10 my-10 rounded-md font-medium transition-colors text-6xl
+                className={`continue-button px-6 py-2.5 my-4 rounded-md font-medium transition-colors text-sm
           ${disabled
                     ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                     : "bg-blue-600 text-white hover:bg-blue-700"}`}

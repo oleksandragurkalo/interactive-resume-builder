@@ -1,11 +1,52 @@
-export type InputField = {
+type BaseInputField = {
     value: string;
     name: string;
     label?: string;
-    type: "text" | "email" | "tel" | "textarea" | "month" | "checkbox";
     placeholder?: string;
     required?: boolean;
 };
+
+export type InputField =
+    | (BaseInputField & { type: "text" | "email" | "tel" | "textarea" | "month" | "checkbox" })
+    | (BaseInputField & { type: "select"; options: string[]; allowOther?: boolean });
+
+export const DEGREE_OPTIONS = [
+    "High School Diploma",
+    "Associate Degree",
+    "Bachelor's Degree",
+    "Master's Degree",
+    "MBA",
+    "Doctorate (PhD)",
+    "Certificate",
+    "Other",
+];
+
+export const LANGUAGE_OPTIONS = [
+    "English",
+    "Spanish",
+    "French",
+    "German",
+    "Mandarin Chinese",
+    "Japanese",
+    "Korean",
+    "Portuguese",
+    "Italian",
+    "Russian",
+    "Arabic",
+    "Hindi",
+    "Ukrainian",
+    "Polish",
+    "Dutch",
+    "Other",
+];
+
+export const PROFICIENCY_OPTIONS = [
+    "Native",
+    "Fluent",
+    "Advanced",
+    "Intermediate",
+    "Basic",
+];
 
 export type PersonalInfo = {
     fullName: InputField;
@@ -23,6 +64,31 @@ export type ExperienceInfo = {
     startDate: InputField;
     endDate: InputField;
     experience: InputField;
+};
+
+export type EducationInfo = {
+    school: InputField;
+    degree: InputField;
+    fieldOfStudy: InputField;
+    location: InputField;
+    startDate: InputField;
+    endDate: InputField;
+};
+
+export type SkillInfo = {
+    category: InputField;
+    skills: InputField;
+};
+
+export type LanguageInfo = {
+    language: InputField;
+    proficiency: InputField;
+};
+
+export type CertificationInfo = {
+    name: InputField;
+    issuer: InputField;
+    date: InputField;
 };
 
 export const DEFAULT_PERSONAL_INFO: PersonalInfo = {
@@ -82,8 +148,8 @@ export const DEFAULT_EXPERIENCE_INFO: ExperienceInfo = {
         name: "jobTitle",
         label: "Job Title",
         type: "text",
-        placeholder: "Cachier",
-        required: true,
+        placeholder: "Cashier",
+        required: false,
     },
     employer: {
         value: "",
@@ -91,7 +157,7 @@ export const DEFAULT_EXPERIENCE_INFO: ExperienceInfo = {
         label: "Employer",
         type: "text",
         placeholder: "McDonalds",
-        required: true,
+        required: false,
     },
     location: {
         value: "",
@@ -107,7 +173,7 @@ export const DEFAULT_EXPERIENCE_INFO: ExperienceInfo = {
         label: "Start Date",
         type: "month",
         placeholder: "Select Date",
-        required: true,
+        required: false,
     },
     endDate: {
         value: "",
@@ -115,7 +181,7 @@ export const DEFAULT_EXPERIENCE_INFO: ExperienceInfo = {
         label: "End Date",
         type: "month",
         placeholder: "Select Date",
-        required: true,
+        required: false,
     },
     experience: {
         value: "",
@@ -123,8 +189,128 @@ export const DEFAULT_EXPERIENCE_INFO: ExperienceInfo = {
         label: "Your experience",
         type: "textarea",
         placeholder: "Please update your experience",
-        required: true,
+        required: false,
     },
 }
 
-export const LOCAL_STORAGE_KEY = "resume-personal-info";
+export const DEFAULT_EDUCATION_INFO: EducationInfo = {
+    school: {
+        value: "",
+        name: "school",
+        label: "School",
+        type: "text",
+        placeholder: "University of Toronto",
+        required: false,
+    },
+    degree: {
+        value: "",
+        name: "degree",
+        label: "Degree",
+        type: "select",
+        placeholder: "Select degree",
+        options: DEGREE_OPTIONS,
+        required: false,
+    },
+    fieldOfStudy: {
+        value: "",
+        name: "fieldOfStudy",
+        label: "Field of Study",
+        type: "text",
+        placeholder: "Computer Science",
+        required: false,
+    },
+    location: {
+        value: "",
+        name: "location",
+        label: "Location",
+        type: "text",
+        placeholder: "Toronto, Canada",
+        required: false,
+    },
+    startDate: {
+        value: "",
+        name: "startDate",
+        label: "Start Year",
+        type: "text",
+        placeholder: "2020",
+        required: false,
+    },
+    endDate: {
+        value: "",
+        name: "endDate",
+        label: "End Year",
+        type: "text",
+        placeholder: "2024",
+        required: false,
+    },
+}
+
+export const DEFAULT_SKILL_INFO: SkillInfo = {
+    category: {
+        value: "",
+        name: "category",
+        label: "Category",
+        type: "text",
+        placeholder: "Technical Skills",
+        required: false,
+    },
+    skills: {
+        value: "",
+        name: "skills",
+        label: "Skills",
+        type: "text",
+        placeholder: "JavaScript, TypeScript, React, Node.js",
+        required: false,
+    },
+}
+
+export const DEFAULT_LANGUAGE_INFO: LanguageInfo = {
+    language: {
+        value: "",
+        name: "language",
+        label: "Language",
+        type: "select",
+        placeholder: "Select language",
+        options: LANGUAGE_OPTIONS,
+        allowOther: true,
+        required: false,
+    },
+    proficiency: {
+        value: "",
+        name: "proficiency",
+        label: "Proficiency",
+        type: "select",
+        placeholder: "Select proficiency",
+        options: PROFICIENCY_OPTIONS,
+        required: false,
+    },
+}
+
+export const DEFAULT_CERTIFICATION_INFO: CertificationInfo = {
+    name: {
+        value: "",
+        name: "name",
+        label: "Certification Name",
+        type: "text",
+        placeholder: "AWS Certified Solutions Architect",
+        required: false,
+    },
+    issuer: {
+        value: "",
+        name: "issuer",
+        label: "Issuing Organization",
+        type: "text",
+        placeholder: "Amazon Web Services",
+        required: false,
+    },
+    date: {
+        value: "",
+        name: "date",
+        label: "Year",
+        type: "text",
+        placeholder: "2023",
+        required: false,
+    },
+}
+
+export const LOCAL_STORAGE_KEY = "resume-builder-data";

@@ -12,6 +12,22 @@ export function validateField(field: InputField): string | null {
     return null;
 }
 
+export function applyFieldChange<T extends Record<string, InputField>>(
+    item: T,
+    name: string,
+    value: string
+): { fieldName: keyof T; updatedField: InputField; error: string | null } {
+    const fieldName = name as keyof T;
+    const field = item[fieldName] as InputField;
+    const updatedField = { ...field, value };
+
+    return {
+        fieldName,
+        updatedField,
+        error: validateField(updatedField),
+    };
+}
+
 export function validateForm(info: Record<string, InputField>): Record<string, string | null> {
     return Object.fromEntries(
         Object.values(info).map((field) => [field.name, validateField(field)])
@@ -28,6 +44,36 @@ export function handleValidatedContinue<T>(
     setErrors(errors);
 
     const hasErrors = Object.values(errors).some((e) => e !== null);
+
+    if (!hasErrors) {
+        onSuccess();
+    }
+}
+
+export function handleValidatedContinueForList<T>(
+    data: T[],
+    validateSingleItem: (item: T) => Record<string, string | null>,
+    setErrors: React.Dispatch<React.SetStateAction<Record<string, string | null>[]>>,
+    onSuccess: () => void,
+    options?: { minItems?: number; emptyListMessage?: string }
+) {
+    const errorsArray: Record<string, string | null>[] = [];
+    let hasErrors = false;
+
+    data.forEach((item) => {
+        const itemErrors = validateSingleItem(item);
+        errorsArray.push(itemErrors);
+        if (Object.values(itemErrors).some(e => e !== null)) {
+            hasErrors = true;
+        }
+    });
+
+    const minItems = options?.minItems ?? 1;
+    if (data.length < minItems) {
+        hasErrors = true;
+    }
+
+    setErrors(errorsArray);
 
     if (!hasErrors) {
         onSuccess();

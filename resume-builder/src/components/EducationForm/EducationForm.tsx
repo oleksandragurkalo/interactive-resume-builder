@@ -1,15 +1,43 @@
-function EducationForm() {
+import React from "react";
+import { EducationInfo } from "../../data/resume.model.tsx";
+import InfoInput from "../InfoInput/InfoInput.tsx";
+
+type EducationFormProps = {
+    index: number;
+    education: EducationInfo;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    fieldErrors: Record<string, string | null>;
+    onRemove?: () => void;
+};
+
+function EducationForm({ index, education, handleChange, fieldErrors, onRemove }: EducationFormProps) {
     return (
-        <div className="w-full border-t py-12">
-            <div className="flex justify-between items-center gap-1">
-                <div>
-                    <h2 className="text-8xl font-semibold mb-2">Education</h2>
-                    <p className="text-6xl text-gray-500">Add your education details</p>
-                </div>
-                <button className="px-5 py-2 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors">Add Education</button>
+        <div className="education-form-item border border-gray-200 rounded-lg p-4 space-y-4">
+            <div className="flex justify-between items-center">
+                <h3 className="text-sm font-semibold text-gray-700">Education {index + 1}</h3>
+                {onRemove && (
+                    <button
+                        type="button"
+                        onClick={onRemove}
+                        className="text-xs font-medium text-red-500 hover:text-red-700 transition-colors"
+                    >
+                        Remove
+                    </button>
+                )}
+            </div>
+            <div className="space-y-4">
+                {Object.values(education).map((field) => (
+                    <InfoInput
+                        key={field.name}
+                        info={field}
+                        error={fieldErrors[field.name]}
+                        onChange={handleChange}
+                        fieldId={`${field.name}-${index}`}
+                    />
+                ))}
             </div>
         </div>
     )
-};
+}
 
-export default EducationForm
+export default EducationForm;

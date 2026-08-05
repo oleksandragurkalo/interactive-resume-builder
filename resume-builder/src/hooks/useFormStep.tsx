@@ -1,28 +1,17 @@
 import { useState } from "react";
-import { validateField } from "../utils/validation";
+import { applyFieldChange } from "../utils/validation.tsx";
 import { InputField } from "../data/resume.model.tsx";
 
-export function useFormStep<T>(defaultValue: T) {
+export function useFormStep<T extends Record<string, InputField>>(defaultValue: T) {
     const [data, setData] = useState<T>(defaultValue);
     const [errors, setErrors] = useState<Record<string, string | null>>({});
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        const fieldName = name as keyof T;
-        const field = data[fieldName] as InputField;
+        const { fieldName, updatedField, error } = applyFieldChange(data, name, value);
 
-        const updatedField = { ...field, value };
-        const error = validateField(updatedField);
-
-        setData((prev) => ({
-            ...prev,
-            [fieldName]: updatedField,
-        }));
-
-        setErrors((prevErrors) => ({
-            ...prevErrors,
-            [name]: error,
-        }));
+        setData((prev) => ({ ...prev, [fieldName]: updatedField }));
+        setErrors((prev) => ({ ...prev, [name]: error }));
     };
 
     return {

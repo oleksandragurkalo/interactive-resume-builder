@@ -136,9 +136,9 @@ function ResumePreview({ info, experienceList, educationList, skillList, languag
                                                 </span>
                                             )}
                                         </div>
-                                        {(education.fieldOfStudy.value || education.location.value) && (
+                                        {education.fieldOfStudy.value && (
                                             <div className={`${TEXT_SMALL} text-gray-500 mt-0.5`}>
-                                                {[education.fieldOfStudy.value, education.location.value].filter(Boolean).join(" · ")}
+                                                {education.fieldOfStudy.value}
                                             </div>
                                         )}
                                     </div>

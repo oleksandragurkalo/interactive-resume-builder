@@ -70,7 +70,6 @@ export type EducationInfo = {
     school: InputField;
     degree: InputField;
     fieldOfStudy: InputField;
-    location: InputField;
     startDate: InputField;
     endDate: InputField;
 };
@@ -217,14 +216,6 @@ export const DEFAULT_EDUCATION_INFO: EducationInfo = {
         label: "Field of Study",
         type: "text",
         placeholder: "Computer Science",
-        required: false,
-    },
-    location: {
-        value: "",
-        name: "location",
-        label: "Location",
-        type: "text",
-        placeholder: "Toronto, Canada",
         required: false,
     },
     startDate: {

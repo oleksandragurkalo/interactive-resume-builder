@@ -8,6 +8,8 @@ import {
     SkillInfo,
 } from "../data/resume.model.tsx";
 
+const STORAGE_VERSION = 1;
+
 export type PersistedResumeData = {
     step: number;
     info: PersonalInfo;
@@ -19,10 +21,20 @@ export type PersistedResumeData = {
     certificationList: CertificationInfo[];
 };
 
+type PersistedEnvelope = {
+    version: number;
+    data: PersistedResumeData;
+};
+
 export function loadResumeData(): Partial<PersistedResumeData> | null {
     try {
         const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
-        return raw ? JSON.parse(raw) : null;
+        if (!raw) return null;
+
+        const parsed = JSON.parse(raw) as Partial<PersistedEnvelope>;
+        if (parsed.version !== STORAGE_VERSION || !parsed.data) return null;
+
+        return parsed.data;
     } catch {
         return null;
     }
@@ -30,7 +42,8 @@ export function loadResumeData(): Partial<PersistedResumeData> | null {
 
 export function saveResumeData(data: PersistedResumeData) {
     try {
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+        const envelope: PersistedEnvelope = { version: STORAGE_VERSION, data };
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(envelope));
     } catch {
         // localStorage may be unavailable (private browsing, quota exceeded) — fail silently
     }

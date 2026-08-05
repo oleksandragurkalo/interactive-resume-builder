@@ -142,11 +142,7 @@ function App() {
             experienceList,
             validateForm,
             setExperienceErrorsList,
-            () => setStep(s => s + 1),
-            {
-                minItems: 1,
-                emptyListMessage: "At least one experience is required"
-            }
+            () => setStep(s => s + 1)
         );
     };
 
@@ -156,11 +152,7 @@ function App() {
             educationList,
             validateForm,
             setEducationErrorsList,
-            () => setStep(s => s + 1),
-            {
-                minItems: 1,
-                emptyListMessage: "At least one education entry is required"
-            }
+            () => setStep(s => s + 1)
         );
     };
 
@@ -170,11 +162,7 @@ function App() {
             skillList,
             validateForm,
             setSkillErrorsList,
-            () => setStep(s => s + 1),
-            {
-                minItems: 1,
-                emptyListMessage: "At least one skill category is required"
-            }
+            () => setStep(s => s + 1)
         );
     };
 
@@ -184,11 +172,7 @@ function App() {
             languageList,
             validateForm,
             setLanguageErrorsList,
-            () => setStep(s => s + 1),
-            {
-                minItems: 1,
-                emptyListMessage: "At least one language is required"
-            }
+            () => setStep(s => s + 1)
         );
     };
 

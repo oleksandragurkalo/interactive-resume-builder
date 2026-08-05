@@ -17,6 +17,7 @@ A step-by-step resume builder built with React, TypeScript, and Tailwind CSS. Fi
 - [Vite](https://vite.dev/) for tooling
 - [Tailwind CSS v4](https://tailwindcss.com/) for styling
 - [ESLint](https://eslint.org/) for linting
+- [Vitest](https://vitest.dev/) + [React Testing Library](https://testing-library.com/react) for testing
 
 ## Getting started
 
@@ -41,6 +42,12 @@ Run these from inside `resume-builder/`:
 | `npm run build` | Type-check and build for production into `dist/` |
 | `npm run preview` | Preview the production build locally |
 | `npm run lint` | Run ESLint |
+| `npm test` | Run tests in watch mode |
+| `npm run test:run` | Run tests once (CI-friendly) |
+
+## Testing
+
+Unit tests cover the validation utilities and the `useFormStep`/`useFormList` hooks (including regression coverage for a stale-closure bug that used to let editing one field silently revert a sibling field), plus component tests for the custom `SelectInput` dropdown and `ContinueButton`.
 
 ## Deployment
 

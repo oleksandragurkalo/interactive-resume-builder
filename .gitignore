@@ -1,0 +1,10 @@
+# OS
+.DS_Store
+
+# Editors / tooling
+.idea/
+.vscode/
+.claude/
+
+# Just in case
+node_modules/

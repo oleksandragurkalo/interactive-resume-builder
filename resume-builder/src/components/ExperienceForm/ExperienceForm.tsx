@@ -1,53 +1,45 @@
-import React, { useState } from "react";
+import React from "react";
 import { ExperienceInfo } from "../../data/resume.model.tsx";
 import ExperienceInput from "../ExperienceInput/ExperienceInput.tsx";
 
 type ExperienceFormProps = {
+    index: number;
     experience: ExperienceInfo;
     handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
     fieldErrors: Record<string, string | null>;
     handleCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     isOngoing: boolean;
+    onRemove?: () => void;
 };
 
-function ExperienceForm({ experience, handleChange, fieldErrors, handleCheckboxChange, isOngoing }: ExperienceFormProps) {
-    console.log('ExperienceForm rendered');
-    const [addExperience, setAddExperience] = useState(false);
-
-    const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        setAddExperience(true);
-    }
-
+function ExperienceForm({ index, experience, handleChange, fieldErrors, handleCheckboxChange, isOngoing, onRemove }: ExperienceFormProps) {
     return (
-        <div className="w-full border-t py-12">
-            <div className="flex justify-between items-center gap-1">
-                <div>
-                    <h2 className="text-8xl font-semibold mb-12">Experience</h2>
-                    <p className="text-6xl text-gray-500">Add your experience details</p>
-                </div>
-                <button
-                    onClick={onClick}
-                    className="p-10 my-10 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors text-6xl">
-                    Add Experience
-                </button>
+        <div className="experience-form-item border border-gray-200 rounded-lg p-4 space-y-4">
+            <div className="flex justify-between items-center">
+                <h3 className="text-sm font-semibold text-gray-700">Experience {index + 1}</h3>
+                {onRemove && (
+                    <button
+                        type="button"
+                        onClick={onRemove}
+                        className="text-xs font-medium text-red-500 hover:text-red-700 transition-colors"
+                    >
+                        Remove
+                    </button>
+                )}
             </div>
-            {addExperience && (
-                <>
-                    <div className="space-y-4 mt-4">
-                        {Object.values(experience).map((field) => (
-                            <ExperienceInput
-                                key={field.name}
-                                experience={field}
-                                error={fieldErrors[field.name]}
-                                onChange={handleChange}
-                                isOngoing={isOngoing}
-                                handleCheckboxChange={handleCheckboxChange}
-                            />
-                        ))}
-                    </div>
-                </>
-            )}
+            <div className="space-y-4">
+                {Object.values(experience).map((field) => (
+                    <ExperienceInput
+                        key={field.name}
+                        experience={field}
+                        error={fieldErrors[field.name]}
+                        onChange={handleChange}
+                        isOngoing={isOngoing}
+                        handleCheckboxChange={handleCheckboxChange}
+                        fieldId={`${field.name}-${index}`}
+                    />
+                ))}
+            </div>
         </div>
     )
 }
